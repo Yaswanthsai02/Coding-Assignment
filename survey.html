@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="./survey.css">
+    <style>
+    </style>
+</head>
+<body>
+    <form id="surveyForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required><br>
+
+        <label for="country">Country:</label>
+        <select id="country" required>
+            <option value="">Select</option>
+            <option value="India">India</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+        </select><br>
+
+        <label>Gender:</label>
+        <input type="checkbox" id="male" value="Male"> <label for="male">Male</label>
+        <input type="checkbox" id="female" value="Female"> <label for="female">Female</label><br><br>
+
+        <label for="profession">Profession:</label>
+        <input type="text" id="profession" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br>
+
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" required><br>
+
+        <button type="button" id="resetButton">Reset</button>
+        <button type="button" id="submitButton">Submit</button>
+    </form>
+
+    <div id="popup" style="display: none;">
+    </div>
+
+    <script>
+        
+        const form = document.getElementById("surveyForm");
+        const resetButton = document.getElementById("resetButton");
+        const submitButton = document.getElementById("submitButton");
+        const popup = document.getElementById("popup");
+
+        submitButton.addEventListener("click", function() {
+            
+            if (form.checkValidity()) {
+                
+                let popupContent = "<h2>Survey Form Submission</h2>";
+                const inputs = form.elements;
+                for (let i = 0; i < inputs.length; i++) {
+                    if (inputs[i].tagName === "INPUT" || inputs[i].tagName === "SELECT") {
+                        const label = inputs[i].previousElementSibling.textContent;
+                        const value = inputs[i].value;
+                        popupContent += `<p><strong>${label}:</strong> ${value}</p>`;
+                    }
+                }
+
+                popup.innerHTML = popupContent;
+                popup.style.display = "block";
+
+                
+                form.reset();
+            } else {
+                alert("Please fill in all required fields.");
+            }
+        });
+
+        resetButton.addEventListener("click", function() {
+            form.reset();
+        });
+
+        
+        popup.addEventListener("click", function() {
+            popup.style.display = "none";
+        });
+    </script>
+</body>
+</html>
